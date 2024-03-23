@@ -44,6 +44,10 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
 
+        if (userService.findByEmail(userDTO.getEmail()) != null) {
+            return ResponseEntity.badRequest().build();
+        }
+
         UserEntity userEntity = userService.save(userDTO);
         return ResponseEntity.ok(UserDTO.convertToDTO(userEntity));
     }
