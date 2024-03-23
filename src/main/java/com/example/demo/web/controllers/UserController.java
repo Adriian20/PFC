@@ -25,13 +25,14 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<UserDTO> loginUser(@RequestBody UserDTO userDTO) {
         if(userDTO == null || userDTO.getEmail() == null || userDTO.getContrasenya() == null) {
+            log.info("Empty fields");
             return ResponseEntity.badRequest().build();
         }
 
         UserDTO user = userService.findByEmail(userDTO.getEmail());
 
         if(user == null || !user.getContrasenya().equals(userDTO.getContrasenya())) {
-            log.info("Login error");
+            log.info("User null or wrong password");
             return ResponseEntity.badRequest().build();
         }
 
@@ -41,10 +42,12 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<UserDTO> registerUser(@RequestBody UserDTO userDTO) {
         if (userDTO.getId() != null) {
+            log.info("User with ID {} already exists", userDTO.getId());
             return ResponseEntity.badRequest().build();
         }
 
         if (userService.findByEmail(userDTO.getEmail()) != null) {
+            log.info("User with email {} already exists", userDTO.getEmail());
             return ResponseEntity.badRequest().build();
         }
 
