@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.modeldto.UserDTO;
@@ -20,19 +22,21 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
     }
 
-    @SuppressWarnings("null")
     public UserEntity save(UserDTO userDTO) {
         log.info("UserServiceImpl - save: Guardamos usuario");
 
         if (userDTO != null) {
             UserEntity userEntity = UserDTO.convertToEntity(userDTO);
+            userEntity.setContrasenya(passwordEncoder.encode(userDTO.getContrasenya()));
             return userRepository.save(userEntity);
         } else {
-            throw new IllegalArgumentException("El objeto UserDTO no puede ser nulo");
+            return null;
         }
     }
 
