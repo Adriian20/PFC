@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.modeldto.UserDTO;
@@ -22,7 +21,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(); 
 
     public List<UserEntity> getAllUsers() {
         return userRepository.findAll();
@@ -33,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
         if (userDTO != null) {
             UserEntity userEntity = UserDTO.convertToEntity(userDTO);
-            userEntity.setContrasenya(passwordEncoder.encode(userDTO.getContrasenya()));
+            userEntity.setContrasenya(encoder.encode(userDTO.getContrasenya()));
             return userRepository.save(userEntity);
         } else {
             return null;
