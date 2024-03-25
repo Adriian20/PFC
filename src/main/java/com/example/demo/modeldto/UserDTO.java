@@ -14,7 +14,6 @@ public class UserDTO implements Serializable {
     private String apellidos;
     private String email;
     private String contrasenya;
-    private int cp;
     private String cuenta_bancaria;
 
     public static UserDTO convertToDTO(UserEntity userEntity) {
@@ -24,7 +23,6 @@ public class UserDTO implements Serializable {
         userDTO.setApellidos(userEntity.getApellidos());
         userDTO.setEmail(userEntity.getEmail());
         userDTO.setContrasenya(userEntity.getContrasenya());
-        userDTO.setCp(userEntity.getCp());
         userDTO.setCuenta_bancaria(userEntity.getCuenta_bancaria());
 
         return userDTO;
@@ -36,7 +34,6 @@ public class UserDTO implements Serializable {
         userEntity.setApellidos(userDTO.getApellidos());
         userEntity.setEmail(userDTO.getEmail());
         userEntity.setContrasenya(userDTO.getContrasenya());
-        userEntity.setCp(userDTO.getCp());
         userEntity.setCuenta_bancaria(userDTO.getCuenta_bancaria());
         return userEntity;
     }

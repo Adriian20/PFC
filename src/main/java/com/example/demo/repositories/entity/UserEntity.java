@@ -30,9 +30,6 @@ public class UserEntity {
     @Column(name = "contrasenya")
     private String contrasenya;
     @Basic
-    @Column(name = "cp")
-    private int cp;
-    @Basic
     @Column(name = "cuenta_bancaria")
     private String cuenta_bancaria;
 
