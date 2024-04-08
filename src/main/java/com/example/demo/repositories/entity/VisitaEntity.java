@@ -2,15 +2,18 @@ package com.example.demo.repositories.entity;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Set;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Table;
 import lombok.Data;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 @Data
@@ -39,6 +42,8 @@ public class VisitaEntity {
     @Basic
     @Column(name = "comentarios")
     private String comentarios;
+    @ManyToMany(mappedBy = "visitas", fetch = FetchType.LAZY)
+    private Set<UsuarioEntity> usuarios;
 
     @Override
     public boolean equals(Object obj) {

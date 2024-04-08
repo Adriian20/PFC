@@ -1,6 +1,8 @@
 package com.example.demo.repositories.entity;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -8,6 +10,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -16,7 +21,7 @@ import lombok.Data;
 @Data
 @Table(name = "usuarios", schema = "pfc")
 public class UsuarioEntity {
-    
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -41,6 +46,10 @@ public class UsuarioEntity {
     private String token;
     @OneToMany(mappedBy = "usuario_id")
     private Collection<ArticuloEntity> articuloByIdusuario;
+    @ManyToMany
+    @JoinTable(name = "usuarios_visitas", joinColumns = @JoinColumn(name = "usuario_vista_id"), 
+    inverseJoinColumns = @JoinColumn(name = "visita_usuario_id"))
+    private Set<VisitaEntity> visitas = new HashSet<>();
 
     @Override
     public boolean equals(Object obj) {
