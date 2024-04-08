@@ -2,14 +2,16 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import com.example.demo.modeldto.UserDTO;
-import com.example.demo.repositories.entity.UserEntity;
+import com.example.demo.dto.UsuarioDTO;
+import com.example.demo.repositories.entity.UsuarioEntity;
 
 public interface UserService {
 
-    List<UserEntity> getAllUsers();
+    List<UsuarioEntity> getAllUsers();
 
-    UserEntity save (UserDTO userDTO);
+    UsuarioEntity save (UsuarioDTO usuarioDTO);
 
-    UserDTO findByEmail(String email);
+    UsuarioDTO findByEmail(String email);
+    
+    UsuarioDTO findByToken(String token);
 }
