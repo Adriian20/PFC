@@ -34,8 +34,11 @@ public class ArticuloEntity {
     @Column(name = "marca")
     private String marca;
     @Basic
+    @Column(name = "stock")
+    private Integer stock;
+    @Basic
     @Column(name = "talla")
-    private Float talla;
+    private String talla;
     @Basic
     @Column(name = "genero")
     private String genero;

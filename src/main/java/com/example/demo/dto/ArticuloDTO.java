@@ -15,8 +15,9 @@ public class ArticuloDTO implements Serializable {
     private String descripcion;
     private String img;
     private Float precio;
+    private Integer stock;
     private String marca;
-    private Float talla;
+    private String talla;
     private String genero;
 
     public static ArticuloDTO convertToDTO(ArticuloEntity articuloEntity) {
@@ -27,6 +28,7 @@ public class ArticuloDTO implements Serializable {
         articuloDTO.setDescripcion(articuloEntity.getDescripcion());
         articuloDTO.setImg(articuloEntity.getImg());
         articuloDTO.setPrecio(articuloEntity.getPrecio());
+        articuloDTO.setStock(articuloEntity.getStock());
         articuloDTO.setMarca(articuloEntity.getMarca());
         articuloDTO.setTalla(articuloEntity.getTalla());
         articuloDTO.setGenero(articuloEntity.getGenero());
@@ -42,6 +44,7 @@ public class ArticuloDTO implements Serializable {
         articuloEntity.setDescripcion(articuloDTO.getDescripcion());
         articuloEntity.setImg(articuloDTO.getImg());
         articuloEntity.setPrecio(articuloDTO.getPrecio());
+        articuloEntity.setStock(articuloDTO.getStock());
         articuloEntity.setMarca(articuloDTO.getMarca());
         articuloEntity.setTalla(articuloDTO.getTalla());
         articuloEntity.setGenero(articuloDTO.getGenero());
