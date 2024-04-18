@@ -42,6 +42,9 @@ public class VisitaEntity {
     @Basic
     @Column(name = "comentarios")
     private String comentarios;
+    @Basic
+    @Column(name = "stock_entradas")
+    private int stock_entradas;
     @ManyToMany(mappedBy = "visitas", fetch = FetchType.LAZY)
     private Set<UsuarioEntity> usuarios;
 

@@ -19,6 +19,7 @@ public class VisitaDTO implements Serializable {
     private String tipo_entrada;
     private Float precio_entrada;
     private String comentarios;
+    private int stock_entradas;
 
     public static VisitaDTO convertToDTO(VisitaEntity visitaEntity) {
         VisitaDTO visitaDTO = new VisitaDTO();
@@ -30,6 +31,7 @@ public class VisitaDTO implements Serializable {
         visitaDTO.setTipo_entrada(visitaEntity.getTipo_entrada());
         visitaDTO.setPrecio_entrada(visitaEntity.getPrecio_entrada());
         visitaDTO.setComentarios(visitaEntity.getComentarios());
+        visitaDTO.setStock_entradas(visitaEntity.getStock_entradas());
 
         return visitaDTO;
     }
@@ -44,6 +46,7 @@ public class VisitaDTO implements Serializable {
         visitaEntity.setTipo_entrada(visitaDTO.getTipo_entrada());
         visitaEntity.setPrecio_entrada(visitaDTO.getPrecio_entrada());
         visitaEntity.setComentarios(visitaDTO.getComentarios());
+        visitaEntity.setStock_entradas(visitaDTO.getStock_entradas());
 
         return visitaEntity;
     }
