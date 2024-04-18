@@ -19,7 +19,7 @@ public class VisitaDTO implements Serializable {
     private String tipo_entrada;
     private Float precio_entrada;
     private String comentarios;
-    private int stock_entradas;
+    private Integer stock_entradas;
 
     public static VisitaDTO convertToDTO(VisitaEntity visitaEntity) {
         VisitaDTO visitaDTO = new VisitaDTO();
