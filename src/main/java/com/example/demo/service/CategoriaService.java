@@ -7,4 +7,6 @@ import com.example.demo.dto.CategoriaDTO;
 public interface CategoriaService {
 
     List<CategoriaDTO> getAll();
+
+    CategoriaDTO findById(CategoriaDTO categoriaDTO);
 }

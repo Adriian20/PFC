@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,16 @@ public class CategoriaServiceImpl implements CategoriaService {
         return categoriaes.stream()
                 .map(CategoriaDTO::convertToDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public CategoriaDTO findById(CategoriaDTO categoriaDTO) {
+        Optional<CategoriaEntity> categoriaEntity = categoriaRepository.findById(categoriaDTO.getId());
+        if (categoriaEntity.isPresent()) {
+            categoriaDTO = CategoriaDTO.convertToDTO(categoriaEntity.get());
+            return categoriaDTO;
+        } else {
+            return null;
+        }
     }
 }
