@@ -19,8 +19,8 @@ public class ArticuloServiceImpl implements ArticuloService {
 
     @Override
     public List<ArticuloDTO> getAll() {
-        List<ArticuloEntity> articuloes = articuloRepository.findAll();
-        return articuloes.stream()
+        List<ArticuloEntity> articulos = articuloRepository.findAll();
+        return articulos.stream()
                 .map(ArticuloDTO::convertToDTO)
                 .collect(Collectors.toList());
     }
@@ -33,6 +33,15 @@ public class ArticuloServiceImpl implements ArticuloService {
             return articuloDTO;
         } else {
             return null;
+        }
+    }
+
+    @Override
+    public void updateStock(Long id) {
+        Optional<ArticuloEntity> articuloEntity = articuloRepository.findById(id);
+        if (articuloEntity.isPresent()) {
+            articuloEntity.get().setStock(articuloEntity.get().getStock() - 1);
+            articuloRepository.save(articuloEntity.get());
         }
     }
 }

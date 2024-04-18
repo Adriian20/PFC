@@ -9,4 +9,6 @@ public interface ArticuloService {
     List<ArticuloDTO> getAll();
 
     ArticuloDTO findById(ArticuloDTO articuloDTO);
+
+    void updateStock(Long id);
 }
