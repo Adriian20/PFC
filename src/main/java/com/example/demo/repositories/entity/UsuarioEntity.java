@@ -47,7 +47,7 @@ public class UsuarioEntity {
     @OneToMany(mappedBy = "usuario_id")
     private Collection<ArticuloEntity> articuloByIdusuario;
     @ManyToMany
-    @JoinTable(name = "usuarios_visitas", joinColumns = @JoinColumn(name = "usuario_vista_id"), 
+    @JoinTable(name = "usuarios_visitas", joinColumns = @JoinColumn(name = "usuario_visita_id"), 
     inverseJoinColumns = @JoinColumn(name = "visita_usuario_id"))
     private Set<VisitaEntity> visitas = new HashSet<>();
 
