@@ -127,8 +127,8 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
-    @PutMapping(path = "editProfile")
-    public ResponseEntity<UsuarioDTO> editProfile(@RequestBody UsuarioDTO usuarioDTO) {
+    @PutMapping(path = "editUser")
+    public ResponseEntity<UsuarioDTO> editUser(@RequestBody UsuarioDTO usuarioDTO) {
         // Validar que el usuarioDTO tenga un token
         if (usuarioDTO.getToken() == null || usuarioDTO.getToken().isEmpty()) {
             return ResponseEntity.notFound().build();
