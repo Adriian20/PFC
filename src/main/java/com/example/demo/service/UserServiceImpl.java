@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.UsuarioDTO;
@@ -41,8 +42,8 @@ public class UserServiceImpl implements UserService {
         Optional<UsuarioEntity> userEntity = userRepository.findByEmail(email);
 
         if (userEntity.isPresent()) {
-            UsuarioDTO userDTO = UsuarioDTO.convertToDTO(userEntity.get());
-            return userDTO;
+            UsuarioDTO usuarioDTO = UsuarioDTO.convertToDTO(userEntity.get());
+            return usuarioDTO;
         } else {
             return null;
         }
@@ -54,8 +55,8 @@ public class UserServiceImpl implements UserService {
         Optional<UsuarioEntity> userEntity = userRepository.findByToken(token);
 
         if (userEntity.isPresent()) {
-            UsuarioDTO userDTO = UsuarioDTO.convertToDTO(userEntity.get());
-            return userDTO;
+            UsuarioDTO usuarioDTO = UsuarioDTO.convertToDTO(userEntity.get());
+            return usuarioDTO;
         } else {
             return null;
         }
@@ -73,6 +74,27 @@ public class UserServiceImpl implements UserService {
         } else {
             log.info("Usuario no encontrado para el token proporcionado: {}", usuarioDTO.getToken());
             return null;
+        }
+    }
+
+    @Override
+    public void updateUser(UsuarioDTO usuarioDTO, UsuarioDTO userDTO) {
+        if (usuarioDTO.getContrasenya() != null) {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String encodedPassword = encoder.encode(usuarioDTO.getContrasenya());
+            userDTO.setContrasenya(encodedPassword);
+        }
+        if (usuarioDTO.getEmail() != null) {
+            userDTO.setEmail(usuarioDTO.getEmail());
+        }
+        if (usuarioDTO.getNombre() != null) {
+            userDTO.setNombre(usuarioDTO.getNombre());
+        }
+        if (usuarioDTO.getApellidos() != null) {
+            userDTO.setApellidos(usuarioDTO.getApellidos());
+        }
+        if (usuarioDTO.getCuenta_bancaria() != null) {
+            userDTO.setCuenta_bancaria(usuarioDTO.getCuenta_bancaria());
         }
     }
 }

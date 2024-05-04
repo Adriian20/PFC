@@ -9,9 +9,11 @@ public interface UserService {
 
     List<UsuarioEntity> getAllUsers();
 
-    UsuarioEntity save (UsuarioDTO usuarioDTO);
+    UsuarioEntity save(UsuarioDTO usuarioDTO);
 
     UsuarioDTO findByEmail(String email);
-    
+
     UsuarioDTO findByToken(String token);
+
+    void updateUser(UsuarioDTO usuarioDTO, UsuarioDTO userDTO);
 }

@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.UsuarioDTO;
 import com.example.demo.repositories.entity.UsuarioEntity;
 import com.example.demo.service.UserService;
+
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -123,5 +125,25 @@ public class UsuarioController {
         }
 
         return ResponseEntity.ok(usuario);
+    }
+
+    @PutMapping(path = "editProfile")
+    public ResponseEntity<UsuarioDTO> editProfile(@RequestBody UsuarioDTO usuarioDTO) {
+        // Validar que el usuarioDTO tenga un token
+        if (usuarioDTO.getToken() == null || usuarioDTO.getToken().isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Buscar al usuario por el token
+        UsuarioDTO userDTO = userService.findByToken(usuarioDTO.getToken());
+        if (userDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Editamos el usuario
+        userService.updateUser(usuarioDTO, userDTO);
+
+        userService.save(userDTO);
+        return ResponseEntity.ok(userDTO);
     }
 }
