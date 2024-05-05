@@ -143,6 +143,30 @@ public class UsuarioController {
         // Editamos el usuario
         userService.updateUser(usuarioDTO, userDTO);
 
+        // Guardar el UsuarioDTO actualizado en la base de datos
+        userService.save(userDTO);
+        return ResponseEntity.ok(userDTO);
+    }
+
+    @PutMapping(path = "changePassword")
+    public ResponseEntity<UsuarioDTO> changePassword(@RequestBody UsuarioDTO usuarioDTO) {
+        // Validar que el usuarioDTO tenga un token
+        if (usuarioDTO.getToken() == null || usuarioDTO.getToken().isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Buscar al usuario por el token
+        UsuarioDTO userDTO = userService.findByToken(usuarioDTO.getToken());
+        if (userDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Encripto la nueva contrasenya
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode(usuarioDTO.getContrasenya());
+        userDTO.setContrasenya(encodedPassword);
+
+        // Guardar el UsuarioDTO actualizado en la base de datos
         userService.save(userDTO);
         return ResponseEntity.ok(userDTO);
     }
