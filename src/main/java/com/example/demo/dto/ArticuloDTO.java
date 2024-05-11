@@ -19,6 +19,8 @@ public class ArticuloDTO implements Serializable {
     private String marca;
     private String talla;
     private String genero;
+    private Long usuarioId;
+    private Long categoriaId;
 
     public static ArticuloDTO convertToDTO(ArticuloEntity articuloEntity) {
         ArticuloDTO articuloDTO = new ArticuloDTO();
@@ -32,6 +34,8 @@ public class ArticuloDTO implements Serializable {
         articuloDTO.setMarca(articuloEntity.getMarca());
         articuloDTO.setTalla(articuloEntity.getTalla());
         articuloDTO.setGenero(articuloEntity.getGenero());
+        articuloDTO.setUsuarioId(articuloEntity.getUsuarioId());
+        articuloDTO.setCategoriaId(articuloEntity.getCategoriaId());
 
         return articuloDTO;
     }
@@ -48,6 +52,8 @@ public class ArticuloDTO implements Serializable {
         articuloEntity.setMarca(articuloDTO.getMarca());
         articuloEntity.setTalla(articuloDTO.getTalla());
         articuloEntity.setGenero(articuloDTO.getGenero());
+        articuloEntity.setCategoriaId(articuloDTO.getCategoriaId());
+        articuloEntity.setUsuarioId(articuloDTO.getUsuarioId());
 
         return articuloEntity;
     }
