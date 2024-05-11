@@ -61,19 +61,20 @@ public class ArticulosController {
         }
     }
 
-    @GetMapping("/findByCategoria/{id}")
-    public ResponseEntity<ArticuloDTO> findByCategoria(@PathVariable Long categoriaid) {
-        if (categoriaid == 0) {
+    @GetMapping("/findByCategoria/{categoriaId}")
+    public ResponseEntity<List<ArticuloDTO>> findByCategoria(@PathVariable Long categoriaId) {
+        if (categoriaId == null || categoriaId <= 0) {
             return ResponseEntity.badRequest().build();
+        }
+
+        ArticuloDTO articuloDTO = new ArticuloDTO();
+        articuloDTO.setCategoriaId(categoriaId);
+        List<ArticuloDTO> articulosDTO = articuloService.findByCategoria(articuloDTO);
+
+        if (articulosDTO == null || articulosDTO.isEmpty()) {
+            return ResponseEntity.notFound().build();
         } else {
-            ArticuloDTO articuloDTO = new ArticuloDTO();
-            articuloDTO.setCategoriaId(categoriaid);
-            Optional<ArticuloDTO> opt = Optional.ofNullable(articuloService.findByCategoria(articuloDTO));
-            if (opt.isEmpty()) {
-                return ResponseEntity.badRequest().build();
-            } else {
-                return ResponseEntity.ok(opt.get());
-            }
+            return ResponseEntity.ok(articulosDTO);
         }
     }
 }
