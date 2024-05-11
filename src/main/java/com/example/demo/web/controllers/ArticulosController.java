@@ -60,4 +60,20 @@ public class ArticulosController {
             }
         }
     }
+
+    @GetMapping("/findByCategoria/{id}")
+    public ResponseEntity<ArticuloDTO> findByCategoria(@PathVariable Long categoriaid) {
+        if (categoriaid == 0) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            ArticuloDTO articuloDTO = new ArticuloDTO();
+            articuloDTO.setCategoriaId(categoriaid);
+            Optional<ArticuloDTO> opt = Optional.ofNullable(articuloService.findByCategoria(articuloDTO));
+            if (opt.isEmpty()) {
+                return ResponseEntity.badRequest().build();
+            } else {
+                return ResponseEntity.ok(opt.get());
+            }
+        }
+    }
 }
