@@ -44,10 +44,10 @@ public class ArticuloEntity {
     private String genero;
     @Basic
     @Column(name = "usuario_id")
-    private Long usuario_id;
+    private Long usuarioId;
     @Basic
     @Column(name = "categoria_id")
-    private Long categoria_id;
+    private Long categoriaId;
 
     @Override
     public boolean equals(Object obj) {

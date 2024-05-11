@@ -30,7 +30,7 @@ public class CategoriaEntity {
     @Basic
     @Column(name = "img")
     private String img;
-    @OneToMany(mappedBy = "categoria_id")
+    @OneToMany(mappedBy = "categoriaId")
     private Collection<ArticuloEntity> articulosByIdcategoria;
 
     @Override

@@ -44,7 +44,7 @@ public class UsuarioEntity {
     @Basic
     @Column(name = "token")
     private String token;
-    @OneToMany(mappedBy = "usuario_id")
+    @OneToMany(mappedBy = "usuarioId")
     private Collection<ArticuloEntity> articuloByIdusuario;
     @ManyToMany
     @JoinTable(name = "usuarios_visitas", joinColumns = @JoinColumn(name = "usuario_visita_id"), 
