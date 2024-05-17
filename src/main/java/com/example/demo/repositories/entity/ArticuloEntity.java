@@ -49,9 +49,11 @@ public class ArticuloEntity {
     @Column(name = "genero", nullable = true)
     private String genero;
 
-    @Basic
-    @Column(name = "categoria_id", nullable = false)
-    private Long categoriaId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria_id", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private CategoriaEntity categoria;
 
     @ManyToMany(mappedBy = "articulos", fetch = FetchType.LAZY)
     @ToString.Exclude

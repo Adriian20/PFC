@@ -1,53 +1,52 @@
 package com.example.demo.repositories.entity;
 
-import java.util.Collection;
-
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import java.util.Set;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Data
 @Table(name = "categorias", schema = "pfc")
 public class CategoriaEntity {
-    
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Basic
-    @Column(name = "nombre")
+
+    @Column(name = "nombre", nullable = false)
     private String nombre;
-    @Basic
-    @Column(name = "descripcion")
+
+    @Column(name = "descripcion", nullable = true)
     private String descripcion;
-    @Basic
-    @Column(name = "img")
+
+    @Column(name = "img", nullable = true)
     private String img;
-    @OneToMany(mappedBy = "categoriaId")
-    private Collection<ArticuloEntity> articulosByIdcategoria;
+
+    @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<ArticuloEntity> articulos;
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         CategoriaEntity other = (CategoriaEntity) obj;
         if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
+            return other.id == null;
+        } else {
+            return id.equals(other.id);
+        }
     }
 
     @Override
