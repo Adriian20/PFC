@@ -36,13 +36,13 @@ public class UsuarioEntity {
     private String token;
 
     @ManyToMany
-    @JoinTable(name = "usuarios_visitas", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "visita_id"))
+    @JoinTable(name = "usuarios_visitas", joinColumns = @JoinColumn(name = "usuario_visita_id"), inverseJoinColumns = @JoinColumn(name = "visita_usuario_id"))
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<VisitaEntity> visitas = new HashSet<>();
 
     @ManyToMany
-    @JoinTable(name = "articulos_usuarios", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "articulo_id"))
+    @JoinTable(name = "articulos_usuarios", joinColumns = @JoinColumn(name = "usuario_articulo_id"), inverseJoinColumns = @JoinColumn(name = "articulo_usuario_id"))
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<ArticuloEntity> articulos = new HashSet<>();
