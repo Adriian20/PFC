@@ -3,49 +3,45 @@ package com.example.demo.repositories.entity;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.Set;
-
-import jakarta.persistence.Basic;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Data
 @Table(name = "visitas", schema = "pfc")
 public class VisitaEntity {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Basic
-    @Column(name = "fecha_visita")
+
+    @Column(name = "fecha_visita", nullable = false)
     private Date fecha_visita;
-    @Basic
-    @Column(name = "hora_entrada")
+
+    @Column(name = "hora_entrada", nullable = false)
     private Time hora_entrada;
-    @Basic
-    @Column(name = "hora_salida")
+
+    @Column(name = "hora_salida", nullable = true)
     private Time hora_salida;
-    @Basic
-    @Column(name = "tipo_entrada")
+
+    @Column(name = "tipo_entrada", nullable = false)
     private String tipo_entrada;
-    @Basic
-    @Column(name = "precio_entrada")
+
+    @Column(name = "precio_entrada", nullable = false)
     private Float precio_entrada;
-    @Basic
-    @Column(name = "comentarios")
+
+    @Column(name = "comentarios", nullable = true)
     private String comentarios;
-    @Basic
-    @Column(name = "stock_entradas")
+
+    @Column(name = "stock_entradas", nullable = false)
     private Integer stock_entradas;
+
     @ManyToMany(mappedBy = "visitas", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<UsuarioEntity> usuarios;
 
     @Override
@@ -64,6 +60,7 @@ public class VisitaEntity {
             return false;
         return true;
     }
+
     @Override
     public int hashCode() {
         final int prime = 31;
