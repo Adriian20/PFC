@@ -50,17 +50,13 @@ public class ArticuloServiceImpl implements ArticuloService {
     }
 
     @Override
-    public List<ArticuloDTO> findByCategoria(ArticuloDTO articuloDTO) {
-        log.info("ArticuloServiceImpl - findByCategoria: Busca de articulos por categoria_id");
+    public List<ArticuloDTO> findByCategoria(Long categoriaId) {
+        log.info("ArticuloServiceImpl - findByCategoriaId: Buscando artículos por categoria ID");
 
-        List<ArticuloEntity> articuloEntities = articuloRepository.findByCategoriaId(articuloDTO.getCategoriaId());
+        List<ArticuloEntity> articuloEntities = articuloRepository.findByCategoriaId(categoriaId);
 
-        if (!articuloEntities.isEmpty()) {
-            return articuloEntities.stream()
-                    .map(ArticuloDTO::convertToDTO)
-                    .collect(Collectors.toList());
-        } else {
-            return null;
-        }
+        return articuloEntities.stream()
+                .map(ArticuloDTO::convertToDTO)
+                .collect(Collectors.toList());
     }
 }

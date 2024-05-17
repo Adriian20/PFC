@@ -12,5 +12,5 @@ public interface ArticuloService {
 
     void updateStock(Long id);
 
-    List<ArticuloDTO> findByCategoria(ArticuloDTO articuloDTO);
+    List<ArticuloDTO> findByCategoria(Long categoriaId);
 }

@@ -67,11 +67,9 @@ public class ArticulosController {
             return ResponseEntity.badRequest().build();
         }
 
-        ArticuloDTO articuloDTO = new ArticuloDTO();
-        articuloDTO.setCategoriaId(categoriaId);
-        List<ArticuloDTO> articulosDTO = articuloService.findByCategoria(articuloDTO);
+        List<ArticuloDTO> articulosDTO = articuloService.findByCategoria(categoriaId);
 
-        if (articulosDTO == null || articulosDTO.isEmpty()) {
+        if (articulosDTO.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
             return ResponseEntity.ok(articulosDTO);
