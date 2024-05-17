@@ -1,53 +1,62 @@
 package com.example.demo.repositories.entity;
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Data
 @Table(name = "articulos", schema = "pfc")
 public class ArticuloEntity {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Basic
-    @Column(name = "nombre")
+    @Column(name = "nombre", nullable = false)
     private String nombre;
+
     @Basic
-    @Column(name = "descripcion")
+    @Column(name = "descripcion", nullable = false)
     private String descripcion;
+
     @Basic
-    @Column(name = "img")
+    @Column(name = "img", nullable = true)
     private String img;
+
     @Basic
-    @Column(name = "precio")
+    @Column(name = "precio", nullable = false)
     private Float precio;
+
     @Basic
-    @Column(name = "marca")
+    @Column(name = "marca", nullable = false)
     private String marca;
+
     @Basic
-    @Column(name = "stock")
+    @Column(name = "stock", nullable = false)
     private Integer stock;
+
     @Basic
-    @Column(name = "talla")
+    @Column(name = "talla", nullable = true)
     private String talla;
+
     @Basic
-    @Column(name = "genero")
+    @Column(name = "genero", nullable = true)
     private String genero;
+
     @Basic
-    @Column(name = "usuario_id")
-    private Long usuarioId;
-    @Basic
-    @Column(name = "categoria_id")
+    @Column(name = "categoria_id", nullable = false)
     private Long categoriaId;
+
+    @ManyToMany(mappedBy = "articulos", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<UsuarioEntity> usuarios = new HashSet<>();
 
     @Override
     public boolean equals(Object obj) {
@@ -65,6 +74,7 @@ public class ArticuloEntity {
             return false;
         return true;
     }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -73,5 +83,4 @@ public class ArticuloEntity {
         return result;
     }
 
-    
 }

@@ -1,55 +1,51 @@
 package com.example.demo.repositories.entity;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Data
 @Table(name = "usuarios", schema = "pfc")
 public class UsuarioEntity {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Basic
-    @Column(name = "nombre")
+
+    @Column(name = "nombre", nullable = false)
     private String nombre;
-    @Basic
-    @Column(name = "apellidos")
+
+    @Column(name = "apellidos", nullable = false)
     private String apellidos;
-    @Basic
-    @Column(name = "email")
+
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
-    @Basic
-    @Column(name = "contrasenya")
+
+    @Column(name = "contrasenya", nullable = false)
     private String contrasenya;
-    @Basic
-    @Column(name = "cuenta_bancaria")
+
+    @Column(name = "cuenta_bancaria", nullable = true)
     private String cuenta_bancaria;
-    @Basic
-    @Column(name = "token")
+
+    @Column(name = "token", nullable = true)
     private String token;
-    @OneToMany(mappedBy = "usuarioId")
-    private Collection<ArticuloEntity> articuloByIdusuario;
+
     @ManyToMany
-    @JoinTable(name = "usuarios_visitas", joinColumns = @JoinColumn(name = "usuario_visita_id"), 
-    inverseJoinColumns = @JoinColumn(name = "visita_usuario_id"))
+    @JoinTable(name = "usuarios_visitas", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "visita_id"))
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<VisitaEntity> visitas = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "articulos_usuarios", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "articulo_id"))
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<ArticuloEntity> articulos = new HashSet<>();
 
     @Override
     public boolean equals(Object obj) {
