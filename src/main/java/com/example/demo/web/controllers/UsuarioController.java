@@ -127,7 +127,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
-    @PutMapping(path = "editUser")
+    @PutMapping("/editUser")
     public ResponseEntity<UsuarioDTO> editUser(@RequestBody UsuarioDTO usuarioDTO) {
         // Validar que el usuarioDTO tenga un token
         if (usuarioDTO.getToken() == null || usuarioDTO.getToken().isEmpty()) {
@@ -148,7 +148,7 @@ public class UsuarioController {
         return ResponseEntity.ok(userDTO);
     }
 
-    @PutMapping(path = "changePassword")
+    @PutMapping("/changePassword")
     public ResponseEntity<UsuarioDTO> changePassword(@RequestBody UsuarioDTO usuarioDTO) {
         // Validar que el usuarioDTO tenga un token
         if (usuarioDTO.getToken() == null || usuarioDTO.getToken().isEmpty()) {
