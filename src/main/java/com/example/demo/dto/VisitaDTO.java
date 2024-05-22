@@ -13,10 +13,10 @@ public class VisitaDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private Long id;
+    private String titulo;
     private Date fecha_visita;
     private Time hora_entrada;
     private Time hora_salida;
-    private String tipo_entrada;
     private Float precio_entrada;
     private String comentarios;
     private Integer stock_entradas;
@@ -28,7 +28,7 @@ public class VisitaDTO implements Serializable {
         visitaDTO.setFecha_visita(visitaEntity.getFecha_visita());
         visitaDTO.setHora_entrada(visitaEntity.getHora_entrada());
         visitaDTO.setHora_salida(visitaEntity.getHora_salida());
-        visitaDTO.setTipo_entrada(visitaEntity.getTipo_entrada());
+        visitaDTO.setTitulo(visitaEntity.getTitulo());
         visitaDTO.setPrecio_entrada(visitaEntity.getPrecio_entrada());
         visitaDTO.setComentarios(visitaEntity.getComentarios());
         visitaDTO.setStock_entradas(visitaEntity.getStock_entradas());
@@ -43,7 +43,7 @@ public class VisitaDTO implements Serializable {
         visitaEntity.setFecha_visita(visitaDTO.getFecha_visita());
         visitaEntity.setHora_entrada(visitaDTO.getHora_entrada());
         visitaEntity.setHora_salida(visitaDTO.getHora_salida());
-        visitaEntity.setTipo_entrada(visitaDTO.getTipo_entrada());
+        visitaEntity.setTitulo(visitaDTO.getTitulo());
         visitaEntity.setPrecio_entrada(visitaDTO.getPrecio_entrada());
         visitaEntity.setComentarios(visitaDTO.getComentarios());
         visitaEntity.setStock_entradas(visitaDTO.getStock_entradas());

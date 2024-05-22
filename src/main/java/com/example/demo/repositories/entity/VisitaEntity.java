@@ -17,6 +17,9 @@ public class VisitaEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "titulo", nullable = false)
+    private String titulo;
+
     @Column(name = "fecha_visita", nullable = false)
     private Date fecha_visita;
 
@@ -25,9 +28,6 @@ public class VisitaEntity {
 
     @Column(name = "hora_salida", nullable = true)
     private Time hora_salida;
-
-    @Column(name = "tipo_entrada", nullable = false)
-    private String tipo_entrada;
 
     @Column(name = "precio_entrada", nullable = false)
     private Float precio_entrada;
