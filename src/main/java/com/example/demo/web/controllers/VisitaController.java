@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,23 +37,6 @@ public class VisitaController {
             if (opt.isEmpty()) {
                 return ResponseEntity.badRequest().build();
             } else {
-                return ResponseEntity.ok(opt.get());
-            }
-        }
-    }
-
-    @PostMapping("/buy/{id}")
-    public ResponseEntity<VisitaDTO> comprarVisita(@PathVariable Long id) {
-        if (id == 0) {
-            return ResponseEntity.badRequest().build();
-        } else {
-            VisitaDTO visitaDTO = new VisitaDTO();
-            visitaDTO.setId(id);
-            Optional<VisitaDTO> opt = Optional.ofNullable(visitaService.findById(visitaDTO));
-            if (opt.isEmpty()) {
-                return ResponseEntity.badRequest().build();
-            } else {
-                visitaService.updateStock(id);
                 return ResponseEntity.ok(opt.get());
             }
         }
