@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 @Entity
 @Data
@@ -35,17 +33,11 @@ public class UsuarioEntity {
     @Column(name = "token", nullable = true)
     private String token;
 
-    @ManyToMany
-    @JoinTable(name = "usuarios_visitas", joinColumns = @JoinColumn(name = "usuario_visita_id"), inverseJoinColumns = @JoinColumn(name = "visita_usuario_id"))
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Set<VisitaEntity> visitas = new HashSet<>();
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UsuarioArticulo> articulos = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "articulos_usuarios", joinColumns = @JoinColumn(name = "usuario_articulo_id"), inverseJoinColumns = @JoinColumn(name = "articulo_usuario_id"))
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Set<ArticuloEntity> articulos = new HashSet<>();
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<UsuarioVisita> visitas = new HashSet<>();
 
     @Override
     public boolean equals(Object obj) {

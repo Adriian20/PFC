@@ -55,10 +55,10 @@ public class ArticuloEntity {
     @EqualsAndHashCode.Exclude
     private CategoriaEntity categoria;
 
-    @ManyToMany(mappedBy = "articulos", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "articulo", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<UsuarioEntity> usuarios = new HashSet<>();
+    private Set<UsuarioArticulo> usuarioArticulos = new HashSet<>();
 
     @Override
     public boolean equals(Object obj) {

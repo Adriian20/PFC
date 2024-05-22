@@ -2,11 +2,10 @@ package com.example.demo.repositories.entity;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.HashSet;
 import java.util.Set;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 @Entity
 @Data
@@ -39,10 +38,8 @@ public class VisitaEntity {
     @Column(name = "stock_entradas", nullable = false)
     private Integer stock_entradas;
 
-    @ManyToMany(mappedBy = "visitas", fetch = FetchType.LAZY)
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private Set<UsuarioEntity> usuarios;
+    @ManyToMany(mappedBy = "visita", fetch = FetchType.LAZY)
+    private Set<UsuarioVisita> usuarioVisitas = new HashSet<>();
 
     @Override
     public boolean equals(Object obj) {
