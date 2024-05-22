@@ -1,19 +1,23 @@
 package com.example.demo.web.controllers;
 
+import java.util.Map;
 import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.dto.UsuarioDTO;
 import com.example.demo.repositories.entity.UsuarioEntity;
 import com.example.demo.service.UserService;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -169,5 +173,25 @@ public class UsuarioController {
         // Guardar el UsuarioDTO actualizado en la base de datos
         userService.save(userDTO);
         return ResponseEntity.ok(userDTO);
+    }
+
+    @PostMapping("/{usuarioId}/buy-articles")
+    public UsuarioDTO comprarArticulos(@PathVariable Long usuarioId, @RequestBody Map<Long, Integer> articulos) {
+        try {
+            UsuarioEntity usuario = userService.comprarArticulos(usuarioId, articulos);
+            return UsuarioDTO.convertToDTO(usuario);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @PostMapping("/{usuarioId}/buy-visits")
+    public UsuarioDTO comprarVisitas(@PathVariable Long usuarioId, @RequestBody Map<Long, Integer> visitas) {
+        try {
+            UsuarioEntity usuario = userService.comprarVisitas(usuarioId, visitas);
+            return UsuarioDTO.convertToDTO(usuario);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 }
