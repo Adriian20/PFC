@@ -38,6 +38,10 @@ public class VisitaEntity {
     @Column(name = "stock_entradas", nullable = false)
     private Integer stock_entradas;
 
+    @Basic
+    @Column(name = "img", nullable = true)
+    private String img;
+
     @ManyToMany(mappedBy = "visita", fetch = FetchType.LAZY)
     private Set<UsuarioVisita> usuarioVisitas = new HashSet<>();
 
