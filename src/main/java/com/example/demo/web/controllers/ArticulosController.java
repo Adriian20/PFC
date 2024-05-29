@@ -57,4 +57,25 @@ public class ArticulosController {
             return ResponseEntity.ok(articulosDTO);
         }
     }
+
+    @GetMapping("/{id}/showStock")
+    public ResponseEntity<Integer> getStockForItem(@PathVariable Long id) {
+        if (id == null || id <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        ArticuloDTO articuloDTO = new ArticuloDTO();
+        articuloDTO.setId(id);
+        Optional<ArticuloDTO> opt = Optional.ofNullable(articuloService.findById(articuloDTO));
+        if (opt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            Integer stock = opt.get().getStock();
+            if (stock == null) {
+                return ResponseEntity.badRequest().build();
+            } else {
+                return ResponseEntity.ok(stock);
+            }
+        }
+    }
 }

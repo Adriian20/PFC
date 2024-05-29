@@ -41,4 +41,25 @@ public class VisitaController {
             }
         }
     }
+
+    @GetMapping("/{id}/showStockEntradas")
+    public ResponseEntity<Integer> getStockForVisit(@PathVariable Long id) {
+        if (id == null || id <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        VisitaDTO visitaDTO = new VisitaDTO();
+        visitaDTO.setId(id);
+        Optional<VisitaDTO> opt = Optional.ofNullable(visitaService.findById(visitaDTO));
+        if (opt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            Integer stock = opt.get().getStock_entradas();
+            if (stock == null) {
+                return ResponseEntity.badRequest().build();
+            } else {
+                return ResponseEntity.ok(stock);
+            }
+        }
+    }
 }
